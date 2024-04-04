@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieApp.AuthApi.API", "MovieApp.AuthApi.API\MovieApp.AuthApi.API.csproj", "{47F1C1DC-6689-488C-921C-C0937D0F7D2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieApp.AuthApi.Identity", "MovieApp.AuthApi.Identity\MovieApp.AuthApi.Identity.csproj", "{E29415C9-7995-4C4E-8313-EA936380C8C3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{47F1C1DC-6689-488C-921C-C0937D0F7D2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47F1C1DC-6689-488C-921C-C0937D0F7D2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47F1C1DC-6689-488C-921C-C0937D0F7D2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47F1C1DC-6689-488C-921C-C0937D0F7D2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E29415C9-7995-4C4E-8313-EA936380C8C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E29415C9-7995-4C4E-8313-EA936380C8C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E29415C9-7995-4C4E-8313-EA936380C8C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E29415C9-7995-4C4E-8313-EA936380C8C3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {29BB6137-182D-4BA9-BD9C-685961C9983A}
+	EndGlobalSection
+EndGlobal
