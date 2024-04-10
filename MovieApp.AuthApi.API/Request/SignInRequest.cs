@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MovieApp.AuthApi.API.Models;
+namespace MovieApp.AuthApi.API.Request;
 
-public class SignInModel
+public class SignInRequest
 {
     [Required(ErrorMessage = "Email is required")]
     [EmailAddress]

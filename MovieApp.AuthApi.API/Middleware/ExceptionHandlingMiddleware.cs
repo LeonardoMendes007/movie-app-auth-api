@@ -34,11 +34,11 @@ public class ExceptionHandlingMiddleware
 
         ResponseBase response = exception switch
         {
-            UnauthorizedAccessException _ => new ResponseBase(HttpStatusCode.Unauthorized, "Unauthorized."),
-            UserNameAlreadyExistsException _ => new ResponseBase(HttpStatusCode.BadRequest, exception.Message),
-            EmailAlreadyExistsException _ => new ResponseBase(HttpStatusCode.BadRequest, exception.Message),
-            InvalidRefreshTokenException _ => new ResponseBase(HttpStatusCode.BadRequest, exception.Message),
-            _ => new ResponseBase(HttpStatusCode.InternalServerError, "Internal server error. Please retry later.")
+            UnauthorizedAccessException _ => ResponseBase.ResponseBaseFactory(HttpStatusCode.Unauthorized, "Unauthorized."),
+            UserNameAlreadyExistsException _ => ResponseBase.ResponseBaseFactory(HttpStatusCode.BadRequest, exception.Message),
+            EmailAlreadyExistsException _ => ResponseBase.ResponseBaseFactory(HttpStatusCode.BadRequest, exception.Message),
+            InvalidRefreshTokenException _ => ResponseBase.ResponseBaseFactory(HttpStatusCode.BadRequest, exception.Message),
+            _ => ResponseBase.ResponseBaseFactory(HttpStatusCode.InternalServerError, "Internal server error. Please retry later.")
         };
 
         context.Response.ContentType = "application/json";

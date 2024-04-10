@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MovieApp.AuthApi.API.Models;
+namespace MovieApp.AuthApi.API.Request;
 
-public class RegisterModel
+public class RegisterRequest
 {
     [Required(ErrorMessage = "Username is required")]
     public string UserName { get; set; }

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MovieApp.AuthApi.API.Models;
 using MovieApp.AuthApi.API.Request;
 using MovieApp.AuthApi.API.Response;
 using MovieApp.AuthApi.API.Service;
@@ -29,7 +28,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterModel registerModel)
+    public async Task<IActionResult> Register([FromBody] RegisterRequest registerModel)
     {
         var result = await _authService.RegisterAccount(registerModel.UserName, registerModel.Email, registerModel.Password);
 
@@ -39,7 +38,7 @@ public class AuthController : ControllerBase
 
         await _refreshTokenService.RegisterRefreshTokenAsync(refreshTokenModel.RefreshToken, refreshTokenModel.RefreshTokenValidityInHours, result.Credential);
 
-        return Ok(new ResponseBase<TokenResponse>(new TokenResponse
+        return Ok(ResponseBase<TokenResponse>.ResponseBaseFactory(new TokenResponse
         {
             Authenticated = true,
             Expiration = tokenModel.Expiration,
@@ -49,12 +48,12 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] SignInModel signInModel)
+    public async Task<IActionResult> Login([FromBody] SignInRequest signInModel)
     {
         var result = await _authService.SignInAsync(signInModel.Email, signInModel.Password);
 
         if (!result.IsAuthenticated || result.Credential is null)
-            return Unauthorized(new ResponseBase(HttpStatusCode.Unauthorized, "Username or Password is invalid!"));
+            return Unauthorized(ResponseBase.ResponseBaseFactory(HttpStatusCode.Unauthorized, "Username or Password is invalid!"));
 
         var tokenModel = _tokenService.GenerateAccessToken(result.Credential);
 
@@ -62,7 +61,7 @@ public class AuthController : ControllerBase
 
         await _refreshTokenService.RegisterRefreshTokenAsync(refreshTokenModel.RefreshToken, refreshTokenModel.RefreshTokenValidityInHours, result.Credential);
 
-        return Ok(new ResponseBase<TokenResponse>(new TokenResponse
+        return Ok(ResponseBase<TokenResponse>.ResponseBaseFactory(new TokenResponse
         {
             Authenticated = true,
             Expiration = tokenModel.Expiration,
@@ -72,7 +71,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("refresh-token")]
-    public async Task<IActionResult> RefreshToken([FromBody] TokenRequest tokenRequest)
+    public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest tokenRequest)
     {
         if(tokenRequest == null)
             return BadRequest("Invalid tokens");
@@ -95,15 +94,13 @@ public class AuthController : ControllerBase
 
         await _refreshTokenService.RegisterRefreshTokenAsync(refreshTokenModel.RefreshToken, refreshTokenModel.RefreshTokenValidityInHours, result.Credential);
 
-        return Ok(new ResponseBase<TokenResponse>(new TokenResponse
+        return Ok(ResponseBase<TokenResponse>.ResponseBaseFactory(new TokenResponse
         {
             Authenticated = true,
             Expiration = tokenModel.Expiration,
             AccessToken = tokenModel.Token,
             RefreshToken = refreshTokenModel.RefreshToken
         }, HttpStatusCode.OK));
-
-        return Ok(new ResponseBase<TokenModel>(tokenModel, HttpStatusCode.OK));
     }
 
 }
